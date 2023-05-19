@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BA-prosjekt 23 historiefortelling</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <script type="text/javascript" src="../js_tritra/tritra.js"></script>
+    <script type="text/javascript" src="../js/index.js"></script>
+    <script type="text/javascript" src="../js/storyFlow.js"></script>
+
+</head>
+<body>
+
+<div id="boxPopUpStart">
+     <span id="txtPopUpstoryText">
+    </span> <br>
+    <span class="txtPlaceChar" id="txtPlaceCharStart">Place your character in the circle below</span> <br>
+    <div class="btnCharCircle" id="btnCharCirclePopUpStart"></div>
+</div>
+
+<div id="boxMain">
+    <div id="boxTop">
+        <span id="txtStoryText"></span>
+    </div>
+    <div id="boxTouchBox">
+        <div class="progressContainer">
+            <div class="progress-bar" id="progress-bar1"><div class="progress" id="progress1"></div></div>
+            <div class="progress-bar" id="progress-bar2"><div class="progress" id="progress2"></div></div>
+            <div class="progress-bar" id="progress-bar3"><div class="progress" id="progress3"></div></div>
+        </div>
+        <div class="choiceContainer" id="choiceContainer1">
+            <div class="boxChoice" id="boxChoice1">OBJEKT</div>
+            <div class="boxChoice" id="boxChoice2">OBJEKT</div>
+            <div class="boxChoice" id="boxChoice3">OBJEKT</div>
+        </div>
+        <div class="progressContainer">
+            <div class="progress-bar" id="progress-bar4"><div class="progress" id="progress4"></div></div>
+            <div class="progress-bar" id="progress-bar5"><div class="progress" id="progress5"></div></div>
+            <div class="progress-bar" id="progress-bar6"><div class="progress" id="progress6"></div></div>
+        </div>
+        <div class="choiceContainer" id="choiceContainer2">
+            <div class="boxChoice" id="boxChoice4">OBJEKT</div>
+            <div class="boxChoice" id="boxChoice5">OBJEKT</div>
+            <div class="boxChoice" id="boxChoice6">OBJEKT</div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+    let popUpWindow = $("#boxPopUpStart");
+    let popUpCircle = $("#btnCharCirclePopUpStart");
+    let popUpText = $("#txtPopUpstoryText");
+    let storyText = $("#txtStoryText");
+
+    let choices = $(".boxChoice");
+    let choicePosition1 = $("#boxChoice1");
+    let choicePosition2 = $("#boxChoice2");
+    let choicePosition3 = $("#boxChoice3");
+    let choicePosition4 = $("#boxChoice4");
+    let choicePosition5 = $("#boxChoice5");
+    let choicePosition6 = $("#boxChoice6");
+
+    let progressbar1 = $("#progress-bar1");
+    let progressbar2 = $("#progress-bar2");
+    let progressbar3 = $("#progress-bar3");
+    let progressbar4 = $("#progress-bar4");
+    let progressbar5 = $("#progress-bar5");
+    let progressbar6 = $("#progress-bar6");
+
+    let progress1 = $("#progress1");
+    let progress2 = $("#progress2");
+    let progress3 = $("#progress3");
+    let progress4 = $("#progress4");
+    let progress5 = $("#progress5");
+    let progress6 = $("#progress6");
+
+    let progressbar = $(".progress-bar");
+    let progress = $(".progress");
+
+    let storytextPopUp = story.part1;
+
+    let storytext1 = story.part2;
+
+    let storytext2 = story.part3;
+
+    let storytext3 = story.part4;
+
+    let storytext4 = story.part5;
+
+    let c0 = items[0];
+    let c1 = items[1];
+    let c2 = items[2];
+
+    let c3 = items[3];
+    let c4 = items[4];
+    let c5 = items[5];
+
+    let c6 = items[6];
+    let c7 = items[7];
+    let c8 = items[8];
+
+    let c9 = items[9];
+    let c10 = items[10];
+    let c11 = items[11];
+
+
+    // get center point of PopUpCircle
+    const offsetPopUp = popUpCircle.offset();
+    const centerXPopUp = offsetPopUp.left + popUpCircle.outerWidth() / 2;
+    const centerYPopUp = offsetPopUp.top + popUpCircle.outerHeight() / 2;
+
+    console.log(`Center point of PopUpCircle: (${centerXPopUp}, ${centerYPopUp})`);
+
+
+    // get center point of each choice circle
+    const offset1 = choicePosition1.offset();
+    const centerX1 = offset1.left + choicePosition1.outerWidth() / 2;
+    const centerY1 = offset1.top + choicePosition1.outerHeight() / 2;
+    console.log(`Center of choice1: (${centerX1}, ${centerY1})`);
+
+    const offset2 = choicePosition2.offset();
+    const centerX2 = offset2.left + choicePosition2.outerWidth() / 2;
+    const centerY2 = offset2.top + choicePosition2.outerHeight() / 2;
+    console.log(`Center of choice2: (${centerX2}, ${centerY2})`);
+
+    const offset3 = choicePosition3.offset();
+    const centerX3 = offset3.left + choicePosition3.outerWidth() / 2;
+    const centerY3 = offset3.top + choicePosition3.outerHeight() / 2;
+    console.log(`Center of choice3: (${centerX3}, ${centerY3})`);
+
+    const offset4 = choicePosition4.offset();
+    const centerX4 = offset4.left + choicePosition4.outerWidth() / 2;
+    const centerY4 = offset4.top + choicePosition4.outerHeight() / 2;
+    console.log(`Center of choice4: (${centerX4}, ${centerY4})`);
+
+    const offset5 = choicePosition5.offset();
+    const centerX5 = offset5.left + choicePosition5.outerWidth() / 2;
+    const centerY5 = offset5.top + choicePosition5.outerHeight() / 2;
+    console.log(`Center of choice5: (${centerX5}, ${centerY5})`);
+
+    const offset6 = choicePosition6.offset();
+    const centerX6 = offset6.left + choicePosition6.outerWidth() / 2;
+    const centerY6 = offset6.top + choicePosition6.outerHeight() / 2;
+    console.log(`Center of choice6: (${centerX6}, ${centerY6})`);
+
+    const threshold = 50; // Change this to adjust the range threshold
+
+
+    (function () {
+
+        /* ----------------------  OTHER   ------------------------------ */
+
+        $(popUpText).html(storytextPopUp);
+
+        // keep track of whether the disc has already entered the threshold
+        let hasEnteredPopUpThreshold = false;
+        let hasEnteredChoice1Threshold = false;
+        let hasEnteredChoice2Threshold = false;
+        let hasEnteredChoice3Threshold = false;
+        let hasEnteredChoice4Threshold = false;
+        let hasEnteredChoice5Threshold = false;
+        let hasEnteredChoice6Threshold = false;
+
+        let countdown1 = null;
+        let countdown2 = null;
+        let countdown3 = null;
+        let countdown4 = null;
+        let countdown5 = null;
+        let countdown6 = null;
+
+        let countdownStarted1 = false;
+        let countdownStarted2 = false;
+        let countdownStarted3 = false;
+        let countdownStarted4 = false;
+        let countdownStarted5 = false;
+        let countdownStarted6 = false;
+
+
+        /* ----------------------  FUNCTIONS   ------------------------------ */
+
+        function hidePopUp() {
+            console.log("hide PopUp");
+            $(popUpWindow).css({visibility: 'hidden'});
+
+        }
+
+        function showStoryText1() {
+            $(storyText).html(storytext1);
+        }
+
+        function showStoryText2() {
+            $(storyText).html(storytext2);
+        }
+
+        function showStoryText3() {
+            $(storyText).html(storytext3);
+        }
+
+        function showStoryText4() {
+            $(storyText).html(storytext4);
+        }
+
+        function showOptionsFor135() {
+            $(choicePosition2).css({visibility: 'visible'});
+            $(choicePosition4).css({visibility: 'visible'});
+            $(choicePosition6).css({visibility: 'visible'});
+        }
+
+        function showOptionsFor246() {
+            $(choicePosition1).css({visibility: 'visible'});
+            $(choicePosition3).css({visibility: 'visible'});
+            $(choicePosition5).css({visibility: 'visible'});
+        }
+
+        function hideAllChoices() {
+            $(choices).css({visibility: 'hidden'});
+        }
+
+        let rounds = 0;
+
+        function countRounds(){
+            if (rounds === 0){
+                console.log("Runde 2");
+                rounds += 1;
+                $(choicePosition1).html(c3);
+                $(choicePosition3).html(c4);
+                $(choicePosition5).html(c5);
+                showStoryText2();
+            }else if (rounds === 1){
+                console.log("Runde 3");
+                rounds += 1;
+                $(choicePosition2).html(c6);
+                $(choicePosition4).html(c7);
+                $(choicePosition6).html(c8);
+                showStoryText3();
+            }else if (rounds === 2){
+                console.log("Runde 4");
+                rounds += 1;
+                $(choicePosition1).html(c9);
+                $(choicePosition3).html(c10);
+                $(choicePosition5).html(c11);
+                showStoryText4();
+            }
+            else if (rounds === 3){
+                console.log("Runde 5");
+                rounds += 1;
+                alert("Du er gjennom alle rundene");
+            }
+        }
+
+
+        /* ----------------------  TRITRA CODE   ------------------------------ */
+        // define angles
+        let apexAngles = [72, 90, 108];
+
+        // create recognizer instance
+        let R = new tritra.Recognizer(apexAngles, {
+
+            /*
+              Apex angles have a distance of 18 degrees each therefore we choose
+              18 / 2 = 9 degrees of tolerance to each side. You can go lower than
+              that if your application doesn't require markers to be moved quickly.
+            */
+            maxAngleTolerance: 5,
+
+            /*
+              The maximum distance for two points to still be considered as part of
+              the same triangle. You should adjust these according to your screen
+              size and DPI. As a general rule, the larger the screen and the higher
+              the DPI, the higher you should set this value.
+              Do not set it too high though as this will cause two nearby markers to
+              no longer be recognized.
+            */
+            maxPointDistance: 190
+        });
+
+
+        let touchHandlerImpl = function(touches, eventType) {
+
+            let points = [];
+            for(let i = 0; i < touches.length; i++) {
+                points.push(
+                    new tritra.Vector2d(touches[i].clientX, touches[i].clientY)
+                );
+            }
+
+            /*
+              Find matching triangles
+
+              IMPORTANT: For performance reasons you should NOT trigger this
+              function directly from your touch events. Instead simply store the
+              touch coordinates and synchronize the processing with the actual
+              screen refresh rate (ex: 60hz) by using requestAnimationFrame()
+
+              For achieving a really smooth user experience you should additionally
+              outsource the triangle processing into a separate webworker process.
+              This way you will be able to achieve a steady 60fps user experience.
+            */
+
+            let matches = R.findMatches(points);
+
+
+            // check if the disc is not touching the screen
+            if (matches.length === 0 && (countdownStarted1 || countdownStarted2 || countdownStarted3 || countdownStarted4 || countdownStarted5 || countdownStarted6)) {
+                countdownStarted1 = false;
+                countdownStarted2 = false;
+                countdownStarted3 = false;
+                countdownStarted4 = false;
+                countdownStarted5 = false;
+                countdownStarted6 = false;
+
+                clearInterval(countdown1);
+                clearInterval(countdown2);
+                clearInterval(countdown3);
+                clearInterval(countdown4);
+                clearInterval(countdown5);
+                clearInterval(countdown6);
+
+                hasEnteredChoice1Threshold = false;
+                hasEnteredChoice2Threshold = false;
+                hasEnteredChoice3Threshold = false;
+                hasEnteredChoice4Threshold = false;
+                hasEnteredChoice5Threshold = false;
+                hasEnteredChoice6Threshold = false;
+
+                for (var k = 0; k < progress.length; k++) {
+                    progress[k].style.visibility = "hidden";
+                    progress[k].style.width = "0%";
+                }
+
+                for (var j = 0; j < progressbar.length; j++) {
+                    progressbar[j].style.visibility = "hidden";
+                }
+
+
+            }
+
+            matches.forEach(function(match) {
+                let center = match.getCenter();
+                let centerDiscX = Math.round(center.x);
+                let centerDiscY = Math.round(center.y);
+
+                // get distance
+                let distancePopUp = Math.sqrt((centerXPopUp - centerDiscX) ** 2 + (centerYPopUp - centerDiscY) ** 2);
+                let distanceChoice1 = Math.sqrt((centerX1 - centerDiscX) ** 2 + (centerY1 - centerDiscY) ** 2);
+                let distanceChoice2 = Math.sqrt((centerX2 - centerDiscX) ** 2 + (centerY2 - centerDiscY) ** 2);
+                let distanceChoice3 = Math.sqrt((centerX3 - centerDiscX) ** 2 + (centerY3 - centerDiscY) ** 2);
+                let distanceChoice4 = Math.sqrt((centerX4 - centerDiscX) ** 2 + (centerY4 - centerDiscY) ** 2);
+                let distanceChoice5 = Math.sqrt((centerX5 - centerDiscX) ** 2 + (centerY5 - centerDiscY) ** 2);
+                let distanceChoice6 = Math.sqrt((centerX6 - centerDiscX) ** 2 + (centerY6 - centerDiscY) ** 2);
+
+                // if a match is within range, hide the popup and log a message
+                if (distancePopUp <= threshold && !hasEnteredPopUpThreshold) {
+                    hasEnteredPopUpThreshold = true;
+                    console.log("within range");
+                    hidePopUp();
+
+                    // if the window is hidden, show the storytext
+                    if ($(popUpWindow).css('visibility') === 'hidden') {
+                        console.log("hidden");
+                        showStoryText1();
+
+                        // if the storytext is showing, show the three choice circles
+                        if ($(storyText).text() === storytext1) {
+                            console.log("storytext");
+                            showOptionsFor135();
+
+                            // choice circles' text from storyFlow.js
+                            $(choicePosition2).html(c0);
+                            $(choicePosition4).html(c1);
+                            $(choicePosition6).html(c2);
+                        }
+                    }
+                }
+
+                if ($(choicePosition1).css('visibility') === 'visible' && distanceChoice1 <= threshold && !hasEnteredChoice1Threshold && !countdownStarted1) {
+                    hasEnteredChoice1Threshold = true;
+                    console.log("Within range of 1");
+                    countdownStarted1 = true;
+
+                    //start 3 second countdown
+                    let count = 3;
+                    let progress = 0;
+                    countdown1 = setInterval(function () {
+                        if (count === 0) {
+                            console.log("you chose 1");
+
+                            // hide progress bar
+                            $(progress1).css({visibility: 'hidden'});
+                            $(progressbar1).css({visibility: 'hidden'});
+                            $(progress1).css({width: '0%'});
+
+                            // clear countdown
+                            clearInterval(countdown1);
+                            countdownStarted1 = false;
+
+                            // hide all choices and show the next ones
+                            hideAllChoices();
+                            showOptionsFor135();
+
+                            // count rounds
+                            countRounds();
+                        } else {
+                            // update countdown
+                            console.log(count);
+                            count--;
+
+                            // update progress bar
+                            progress += 33.33;
+                            $(progress1).css({visibility: 'visible'});
+                            $(progressbar1).css({visibility: 'visible'});
+                            $(progress1).css({width: progress + '%'});
+                        }
+                    }, 1000);
+                } else if (distanceChoice1 > threshold && countdownStarted1) {
+                    countdownStarted1 = false;
+                    clearInterval(countdown1);
+                    $(progress1).css({visibility: 'hidden'});
+                    $(progressbar1).css({visibility: 'hidden'});
+                    $(progress1).css({width: '0%'});
+
+                    hasEnteredChoice1Threshold = false;
+                }
+
+
+                if ($(choicePosition2).css('visibility') === 'visible' && distanceChoice2 <= threshold && !hasEnteredChoice2Threshold && !countdownStarted2) {
+                    hasEnteredChoice2Threshold = true;
+                    console.log("Within range of 2");
+                    countdownStarted2 = true;
+
+                    //start 3 second countdown
+                    let count = 3;
+                    let progress = 0;
+                    countdown2 = setInterval(function () {
+                        if (count === 0) {
+                            console.log("you chose 2");
+
+                            // hide progress bar
+                            $(progress2).css({visibility: 'hidden'});
+                            $(progressbar2).css({visibility: 'hidden'});
+                            $(progress2).css({width: '0%'});
+
+                            // clear countdown
+                            clearInterval(countdown2);
+                            countdownStarted2 = false;
+
+                            // hide all choices and show the next ones
+                            hideAllChoices();
+                            showOptionsFor246();
+
+                            // count rounds
+                            countRounds();
+                        } else {
+                            // update countdown
+                            console.log(count);
+                            count--;
+
+                            // update progress bar
+                            progress += 33.33;
+                            $(progress2).css({visibility: 'visible'});
+                            $(progressbar2).css({visibility: 'visible'});
+                            $(progress2).css({width: progress + '%'});
+                        }
+                    }, 1000);
+                } else if (distanceChoice2 > threshold && countdownStarted2) {
+                    countdownStarted2 = false;
+                    clearInterval(countdown2);
+                    $(progress2).css({visibility: 'hidden'});
+                    $(progressbar2).css({visibility: 'hidden'});
+                    $(progress2).css({width: '0%'});
+
+                    hasEnteredChoice2Threshold = false;
+                }
+
+                if ($(choicePosition3).css('visibility') === 'visible' && distanceChoice3 <= threshold && !hasEnteredChoice3Threshold && !countdownStarted3) {
+                    hasEnteredChoice3Threshold = true;
+                    console.log("Within range of 3");
+                    countdownStarted3 = true;
+
+                    //start 3 second countdown
+                    let count = 3;
+                    let progress = 0;
+                    countdown3 = setInterval(function () {
+                        if (count === 0) {
+                            console.log("you chose 3");
+
+                            // hide progress bar
+                            $(progress3).css({visibility: 'hidden'});
+                            $(progressbar3).css({visibility: 'hidden'});
+                            $(progress3).css({width: '0%'});
+
+                            // clear countdown
+                            clearInterval(countdown3);
+                            countdownStarted3 = false;
+
+                            // hide all choices and show the next ones
+                            hideAllChoices();
+                            showOptionsFor135();
+
+                            // count rounds
+                            countRounds();
+                        } else {
+                            // update countdown
+                            console.log(count);
+                            count--;
+
+                            // update progress bar
+                            progress += 33.33;
+                            $(progress3).css({visibility: 'visible'});
+                            $(progressbar3).css({visibility: 'visible'});
+                            $(progress3).css({width: progress + '%'});
+                        }
+                    }, 1000);
+                } else if (distanceChoice3 > threshold && countdownStarted3) {
+                    countdownStarted3 = false;
+                    clearInterval(countdown3);
+                    $(progress3).css({visibility: 'hidden'});
+                    $(progressbar3).css({visibility: 'hidden'});
+                    $(progress3).css({width: '0%'});
+
+                    hasEnteredChoice3Threshold = false;
+                }
+
+
+                if ($(choicePosition4).css('visibility') === 'visible' && distanceChoice4 <= threshold && !hasEnteredChoice4Threshold && !countdownStarted4) {
+                    hasEnteredChoice4Threshold = true;
+                    console.log("Within range of 4");
+                    countdownStarted4 = true;
+
+                    //start 3 second countdown
+                    let count = 3;
+                    let progress = 0;
+                    countdown4 = setInterval(function () {
+                        if (count === 0) {
+                            console.log("you chose 4");
+
+                            // hide progress bar
+                            $(progress4).css({visibility: 'hidden'});
+                            $(progressbar4).css({visibility: 'hidden'});
+                            $(progress4).css({width: '0%'});
+
+                            // clear countdown
+                            clearInterval(countdown4);
+                            countdownStarted4 = false;
+
+                            // hide all choices and show the next ones
+                            hideAllChoices();
+                            showOptionsFor246();
+
+                            // count rounds
+                            countRounds();
+                        } else {
+                            // update countdown
+                            console.log(count);
+                            count--;
+
+                            // update progress bar
+                            progress += 33.33;
+                            $(progress4).css({visibility: 'visible'});
+                            $(progressbar4).css({visibility: 'visible'});
+                            $(progress4).css({width: progress + '%'});
+                        }
+                    }, 1000);
+                } else if (distanceChoice4 > threshold && countdownStarted4) {
+                    countdownStarted4 = false;
+                    clearInterval(countdown4);
+                    $(progress4).css({visibility: 'hidden'});
+                    $(progressbar4).css({visibility: 'hidden'});
+                    $(progress4).css({width: '0%'});
+
+                    hasEnteredChoice4Threshold = false;
+                }
+
+                if ($(choicePosition5).css('visibility') === 'visible' && distanceChoice5 <= threshold && !hasEnteredChoice5Threshold && !countdownStarted5) {
+                    hasEnteredChoice5Threshold = true;
+                    console.log("Within range of 5");
+                    countdownStarted5 = true;
+
+                    //start 3 second countdown
+                    let count = 3;
+                    let progress = 0;
+                    countdown5 = setInterval(function () {
+                        if (count === 0) {
+                            console.log("you chose 5");
+
+                            // hide progress bar
+                            $(progress5).css({visibility: 'hidden'});
+                            $(progressbar5).css({visibility: 'hidden'});
+                            $(progress5).css({width: '0%'});
+
+                            // clear countdown
+                            clearInterval(countdown5);
+                            countdownStarted5 = false;
+
+                            // hide all choices and show the next ones
+                            hideAllChoices();
+                            showOptionsFor135();
+
+                            // count rounds
+                            countRounds();
+                        } else {
+                            // update countdown
+                            console.log(count);
+                            count--;
+
+                            // update progress bar
+                            progress += 33.33;
+                            $(progress5).css({visibility: 'visible'});
+                            $(progressbar5).css({visibility: 'visible'});
+                            $(progress5).css({width: progress + '%'});
+                        }
+                    }, 1000);
+                } else if (distanceChoice5 > threshold && countdownStarted5) {
+                    countdownStarted5 = false;
+                    clearInterval(countdown5);
+                    $(progress5).css({visibility: 'hidden'});
+                    $(progressbar5).css({visibility: 'hidden'});
+                    $(progress5).css({width: '0%'});
+
+                    hasEnteredChoice5Threshold = false;
+                }
+
+
+                if ($(choicePosition6).css('visibility') === 'visible' && distanceChoice6 <= threshold && !hasEnteredChoice6Threshold && !countdownStarted6) {
+                    hasEnteredChoice6Threshold = true;
+                    console.log("Within range of 6");
+                    countdownStarted6 = true;
+
+                    //start 3 second countdown
+                    let count = 3;
+                    let progress = 0;
+                    countdown6 = setInterval(function () {
+                        if (count === 0) {
+                            console.log("you chose 6");
+
+                            // hide progress bar
+                            $(progress6).css({visibility: 'hidden'});
+                            $(progressbar6).css({visibility: 'hidden'});
+                            $(progress6).css({width: '0%'});
+
+                            // clear countdown
+                            clearInterval(countdown6);
+                            countdownStarted6 = false;
+
+                            // hide all choices and show the next ones
+                            hideAllChoices();
+                            showOptionsFor246();
+
+                            // count rounds
+                            countRounds();
+                        } else {
+                            // update countdown
+                            console.log(count);
+                            count--;
+
+                            // update progress bar
+                            progress += 33.33;
+                            $(progress6).css({visibility: 'visible'});
+                            $(progressbar6).css({visibility: 'visible'});
+                            $(progress6).css({width: progress + '%'});
+                        }
+                    }, 1000);
+                } else if (distanceChoice6 > threshold && countdownStarted6) {
+                    countdownStarted6 = false;
+                    clearInterval(countdown6);
+                    $(progress6).css({visibility: 'hidden'});
+                    $(progressbar6).css({visibility: 'hidden'});
+                    $(progress6).css({width: '0%'});
+
+                    hasEnteredChoice6Threshold = false;
+                }
+
+            });
+
+        };
+
+        let touchHandler = function(event, eventType) {
+            touchHandlerImpl(event.touches, eventType);
+            event.preventDefault();
+        };
+
+        let touchBox = document.getElementById('boxTouchBox');
+        let popup = document.getElementById('boxPopUpStart');
+
+        // attach touch event handlers
+        touchBox.addEventListener("touchstart", function(e) { touchHandler(e, 'start'); });
+        touchBox.addEventListener("touchmove", function(e) { touchHandler(e, 'move'); });
+        touchBox.addEventListener("touchend", function(e) { touchHandler(e, 'end'); });
+        touchBox.addEventListener("touchcancel", function(e) { touchHandler(e, 'cancel'); });
+
+        popup.addEventListener("touchstart", function(e) { touchHandler(e, 'start'); });
+        popup.addEventListener("touchmove", function(e) { touchHandler(e, 'move'); });
+        popup.addEventListener("touchend", function(e) { touchHandler(e, 'end'); });
+        popup.addEventListener("touchcancel", function(e) { touchHandler(e, 'cancel'); });
+    })();
+
+
+
+</script>
+
+</body>
+
+</html>
