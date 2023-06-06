@@ -44,7 +44,7 @@ html, body {
     box-shadow: darkgray 5px 5px 15px 5px;
     height: 85%;
     width: 40%;
-    font-family: Roboto;
+    font-family: Arial, sans-serif;
     font-size: 20px;
     line-height: 1.5;
     display: flex;
@@ -86,7 +86,7 @@ html, body {
 /* -----------------------------     TEXT     ------------------------------ */
 
 span {
-    font-family: Roboto;
+    font-family: Arial, sans-serif;
     line-height: 1.5;
 }
 
